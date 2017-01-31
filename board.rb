@@ -2,6 +2,7 @@ require_relative 'exceptions.rb'
 require_relative 'pieces/null_piece.rb'
 require_relative 'pieces/knight.rb'
 require_relative 'pieces/king.rb'
+require_relative 'pieces/rook.rb'
 
 class Board
 
@@ -13,15 +14,23 @@ class Board
   end
 
   def populate
-    row = Array.new(8) { Piece.new }
+    row = Array.new(8) { Rook.new(self, nil, :black) }
     @grid[0] = row.dup
     @grid[1] = row.dup
     @grid[6] = row.dup
     @grid[7] = row.dup
     @grid[0][1] = Knight.new(self, [0,1], :black)
     @grid[0][6] = Knight.new(self, [0,6], :black)
+    @grid[0][4] = King.new(self, [0,4], :black)
+    @grid[0][0] = Rook.new(self, [0,0], :black)
+    @grid[0][7] = Rook.new(self, [0,7], :black)
+
+    @grid[7][4] = King.new(self, [7,4], :white)
     @grid[7][1] = Knight.new(self, [7,1], :white)
     @grid[7][6] = Knight.new(self, [7,6], :white)
+    @grid[7][0] = Rook.new(self, [7,0], :white)
+    @grid[7][7] = Rook.new(self, [7,7], :white)
+    @grid[1][0] = NullPiece.instance
 
   end
 
@@ -36,6 +45,10 @@ class Board
     piece = self[start_pos]
     self[start_pos] = NullPiece.instance
     self[end_pos] = piece
+  end
+
+  def piece_color(pos)
+    self[pos].color
   end
 
   def self.in_board_range?(pos)
