@@ -7,7 +7,7 @@ class Piece
     @null
   end
 
-  def render
+  def to_s
     'O'
   end
 end

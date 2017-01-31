@@ -6,7 +6,7 @@ class Board
   attr_reader :grid
 
   def initialize
-    @grid = Array.new(8) { Array.new(8) { NullPiece.new } }
+    @grid = Array.new(8) { Array.new(8) { NullPiece.instance } }
     populate
   end
 
@@ -26,8 +26,7 @@ class Board
     raise MissingPieceError.new if self[start_pos].null?
 
     piece = self[start_pos]
-    self[start_pos] = NullPiece.new
-
+    self[start_pos] = NullPiece.instance
     self[end_pos] = piece
   end
 
