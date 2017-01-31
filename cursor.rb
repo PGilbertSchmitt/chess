@@ -101,7 +101,7 @@ class Cursor
   def update_pos(diff)
     new_position = [diff[0] + @cursor_pos[0], diff[1] + @cursor_pos[1]]
 
-    @cursor_pos = new_position if board.in_board_range?(new_position)
+    @cursor_pos = new_position if Board.in_board_range?(new_position)
   end
 
   def toggle_selected

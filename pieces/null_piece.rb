@@ -5,11 +5,8 @@ class NullPiece < Piece
   include Singleton
 
   def initialize
-    super
+    super(nil, nil, nil)
     @null = true
-  end
-
-  def to_s
-    ' '
+    @symbol = ' '
   end
 end
