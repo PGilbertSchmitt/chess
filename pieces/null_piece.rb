@@ -9,4 +9,8 @@ class NullPiece < Piece
     @null = true
     @symbol = ' '
   end
+
+  def dup(board)
+    self.class.instance
+  end
 end

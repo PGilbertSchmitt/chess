@@ -1,7 +1,8 @@
 require_relative '../board.rb'
 
 class Piece
-  attr_reader :color
+  attr_reader :pos
+  attr_accessor :board, :color
 
   def initialize(board = nil, pos = nil, color = nil)
     @null = false
@@ -17,5 +18,9 @@ class Piece
 
   def to_s
     @symbol
+  end
+
+  def dup(board)
+    new_piece = self.class.new(board, @pos, @color)
   end
 end
