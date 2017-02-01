@@ -1,14 +1,14 @@
 module Slideable
   def moves
 
-    available_moves = []
+    possible_spots = []
     deltas = move_diffs
 
     deltas.each do |delta|
-      available_moves.concat(all_until(delta))
+      possible_spots.concat(all_until(delta))
     end
 
-    available_moves
+    possible_spots
   end
 
   private
@@ -23,7 +23,7 @@ module Slideable
   MOVE_TYPE = {
     bishop: [
                [-1,-1],
-      [ 1, -1],         [-1, 1], 
+      [ 1, -1],         [-1, 1],
                [ 1, 1]
     ],
     queen: [
@@ -49,18 +49,15 @@ module Slideable
 
       current_piece = @board[current_pos]
       if current_piece.color == nil
-        puts "Nothing here: #{current_pos}"
         possible_spots << current_pos
         next
       elsif current_piece.color == @color
-        puts "Our piece: #{current_pos}"
         return possible_spots
       elsif current_piece.color != @color
-        puts "Enemy spotted: #{@color} vs #{current_piece.color}"
         possible_spots << current_pos
         return possible_spots
       else
-        puts "What? => #{current_piece.color}"
+        raise "No such piece color: #{current_piece.color}"
       end
     end
 

@@ -19,6 +19,11 @@ class Board
     @grid[0][5] = Bishop.new(self, [0,5], :black)
     @grid[0][6] = Knight.new(self, [0,6], :black)
     @grid[0][7] = Rook.new(self, [0,7], :black)
+    black_pawns = Array.new(8)
+    black_pawns.each_index do |idx|
+      black_pawns[idx] = Pawn.new(self, [1, idx], :black)
+    end
+    @grid[1] = black_pawns
 
     @grid[7][0] = Rook.new(self, [7,0], :white)
     @grid[7][1] = Knight.new(self, [7,1], :white)
@@ -28,6 +33,13 @@ class Board
     @grid[7][5] = Bishop.new(self, [7,5], :white)
     @grid[7][6] = Knight.new(self, [7,6], :white)
     @grid[7][7] = Rook.new(self, [7,7], :white)
+    white_pawns = Array.new(8)
+    white_pawns.each_index do |idx|
+      white_pawns[idx] = Pawn.new(self, [6, idx], :white)
+    end
+    @grid[6] = white_pawns
+
+    @grid[2][4] = Bishop.new(self, [2,4], :white)
   end
 
   def move_piece(start_pos, end_pos)
