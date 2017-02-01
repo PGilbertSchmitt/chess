@@ -14,15 +14,17 @@ module Slideable
   private
 
   def move_diffs
-    # return MOVE_TYPE[:bishop] if self.is_a?(Bishop)
-    # return MOVE_TYPE[:queen]  if self.is_a?(Queen)
+    return MOVE_TYPE[:bishop] if self.is_a?(Bishop)
+    return MOVE_TYPE[:queen]  if self.is_a?(Queen)
     return MOVE_TYPE[:rook]   if self.is_a?(Rook)
     raise "No such differential for piece: #{self.class}"
   end
 
   MOVE_TYPE = {
     bishop: [
-      [-1, -1], [1, -1], [-1, 1], [1, 1]
+               [-1,-1],
+      [ 1, -1],         [-1, 1], 
+               [ 1, 1]
     ],
     queen: [
       [-1,-1], [ 0,-1], [ 1,-1],
