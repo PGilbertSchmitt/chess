@@ -19,7 +19,15 @@ class Piece
     @symbol
   end
 
+  def moves
+    []
+  end
+
+  def can_see?(other)
+    moves.include?(other.pos)
+  end
+
   def dup(board)
-    new_piece = self.class.new(board, @pos, @color)
+    self.class.new(board, @pos, @color)
   end
 end

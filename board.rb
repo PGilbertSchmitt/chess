@@ -16,7 +16,6 @@ class Board
 
   def initialize
     @grid = Array.new(8) { Array.new(8) { NullPiece.instance } }
-    populate
     nil
   end
 
@@ -91,26 +90,43 @@ class Board
   end
 
   def find_king(color)
-    @grid.flatten.each do |piece|
-      return piece.pos if piece.color == color && piece.is_a?(King)
-    end
+    pieces(color).each { |piece| return piece if piece.is_a?(King) }
     raise "No King!"
   end
 
   def in_check?(color)
-    king_position = find_king(color)
+    king_position = find_king(color).pos
 
-    enemy_color = self.class.enemy_color(color)
-    enemies = []
-    @grid.flatten.each do |piece|
-      enemies << piece if piece.color == enemy_color
-    end
+    enemy_color = Board.enemy_color(color)
+    enemies = pieces(enemy_color)
 
     enemies.each do |enemy|
       return true if enemy.moves.include?(king_position)
     end
 
     false
+  end
+
+  def check_mate?(color)
+    king = find_king(color)
+    other_pieces = pieces(color)
+
+    king.moves.each do |move|
+      test_board = self.dup
+      test_board.move_piece(king.pos, move)
+      return false unless test_board.in_check?(color)
+    end
+
+    other_pieces.each do |piece|
+      next if piece == king
+      piece.moves.each do |move|
+        test_board = self.dup
+        test_board.move_piece(piece.pos, move)
+        return false unless test_board.in_check?(color)
+      end
+    end
+
+    true
   end
 
   def [](pos)
