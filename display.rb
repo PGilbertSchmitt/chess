@@ -19,29 +19,29 @@ class Display
   end
 
   def render
-    @board.grid.each_with_index do |row, i|
-      row.each_with_index do |piece, j|
-        print_piece(piece, [i, j])
-      end
-      print "\n"
+    # Not taking the piece in an effort to decouple it from Display
+    @board.pieces do |_, pos|
+      print_piece(pos)
+      print "\n" if pos[1] == 7
     end
     nil
   end
 
-  def print_piece(piece, pos)
-    print piece.to_s.colorize(set_color(piece, pos))
+  def print_piece(pos)
+    print @board[pos].to_s.colorize(set_color(pos))
   end
 
-  def set_color(piece, pos)
+  def set_color(pos)
     cursor = @cursor.selected ? SELECTED : CURSOR
     return cursor if @cursor.cursor_pos == pos
 
     x, y = pos
     bg_color = ((x + y).even? ? WHITE_SPACE : BLACK_SPACE)
 
-    return DEFAULT.merge(bg_color) if piece.null?
 
-    piece_color = piece.color == :white ? WHITE_PIECE : BLACK_PIECE
+    return DEFAULT.merge(bg_color) if @board.empty_pos?(pos)
+
+    piece_color = @board.piece_color(pos) == :white ? WHITE_PIECE : BLACK_PIECE
     piece_color.merge(bg_color)
   end
 

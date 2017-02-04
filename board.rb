@@ -52,6 +52,15 @@ class Board
     @grid[1][3] = Bishop.new(self, [1, 3], :white)
   end
 
+  def pieces(&blk)
+    raise "No block passed to #pieces" unless block_given?
+    @grid.each_with_index do |row, i|
+      row.each_with_index do |piece, j|
+        blk.call(piece, [i, j])
+      end
+    end
+  end
+
   def move_piece(start_pos, end_pos)
     unless self.class.in_board_range?(start_pos) &&
            self.class.in_board_range?(end_pos)
@@ -67,6 +76,10 @@ class Board
 
   def piece_color(pos)
     self[pos].color
+  end
+
+  def empty_pos?(pos)
+    self[pos].null?
   end
 
   def find_king(color)
