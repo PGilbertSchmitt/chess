@@ -52,7 +52,7 @@ class Board
     @grid[1][3] = Bishop.new(self, [1, 3], :white)
   end
 
-  def pieces(&blk)
+  def all_pieces(&blk)
     raise "No block passed to #pieces" unless block_given?
     @grid.each_with_index do |row, i|
       row.each_with_index do |piece, j|
@@ -61,17 +61,25 @@ class Board
     end
   end
 
+  def pieces(color)
+    @grid.flatten.select { |piece| piece.color == color }
+  end
+
   def move_piece(start_pos, end_pos)
     unless self.class.in_board_range?(start_pos) &&
            self.class.in_board_range?(end_pos)
       raise RangeError.new("Position is out of range!")
     end
-
     raise MissingPieceError.new if self[start_pos].null?
 
     piece = self[start_pos]
+    moveset = piece.moves
+    raise CantReachError.new unless moveset.include?(end_pos)
+
+    piece.pos = end_pos
     self[start_pos] = NullPiece.instance
     self[end_pos] = piece
+    nil
   end
 
   def piece_color(pos)

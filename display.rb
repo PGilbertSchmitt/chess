@@ -20,7 +20,7 @@ class Display
 
   def render
     # Not taking the piece in an effort to decouple it from Display
-    @board.pieces do |_, pos|
+    @board.all_pieces do |_, pos|
       print_piece(pos)
       print "\n" if pos[1] == 7
     end

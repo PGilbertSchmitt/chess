@@ -1,8 +1,7 @@
 require_relative '../board.rb'
 
 class Piece
-  attr_reader :pos
-  attr_accessor :board, :color
+  attr_accessor :board, :color, :pos
 
   def initialize(board = nil, pos = nil, color = nil)
     @null = false
