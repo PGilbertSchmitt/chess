@@ -6,6 +6,6 @@ class King < Piece
 
   def initialize(board, pos, color)
     super
-    @symbol = "\u265A"
+    @symbol = "\u265A "
   end
 end

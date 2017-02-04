@@ -9,7 +9,7 @@ class Piece
     @board = board
     @pos = pos
     @color = color
-    @symbol = 'O'
+    @symbol = 'O '
   end
 
   def null?

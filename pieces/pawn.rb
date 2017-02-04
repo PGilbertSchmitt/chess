@@ -4,7 +4,7 @@ class Pawn < Piece
 
   def initialize(board, pos, color)
     super
-    @symbol = "\u265F"
+    @symbol = "\u265F "
   end
 
   def moves

@@ -7,7 +7,7 @@ class NullPiece < Piece
   def initialize
     super(nil, nil, nil)
     @null = true
-    @symbol = ' '
+    @symbol = '  '
   end
 
   def dup(board)

@@ -6,6 +6,6 @@ class Queen < Piece
 
   def initialize(board, pos, color)
     super
-    @symbol = "\u265B"
+    @symbol = "\u265B "
   end
 end

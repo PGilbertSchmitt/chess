@@ -6,6 +6,6 @@ class Bishop < Piece
 
   def initialize(board, pos, color)
     super
-    @symbol = "\u265D"
+    @symbol = "\u265D "
   end
 end

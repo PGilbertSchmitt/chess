@@ -6,6 +6,6 @@ class Rook < Piece
 
   def initialize(board, pos, color)
     super
-    @symbol = "\u265C"
+    @symbol = "\u265C "
   end
 end
